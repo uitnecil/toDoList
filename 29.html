@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.css">
+
+    <meta charset="UTF-8">
+    <title>Creating To-Do List - Part 1-2-3-4</title>
+
+    <style>
+        .done {
+            color: gray;
+            /*font-style:italic;*/
+            text-decoration: line-through;
+            background-color: darkseagreen;
+        }
+
+        li.custom {
+            list-style-type: none;
+        }
+
+        .my-custom-style {
+            margin: 0;
+        }
+        .my-custom-height {
+            height: 48px;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body ng-app="mainApp" ng-controller="app">
+<md-toolbar md-theme="my-blue" style="min-height:5px"></md-toolbar>
+
+<!--<h1 style="text-align:center;">Add a task</h1>-->
+<div layout="column" layout-align="center center">
+    <md-input-container>
+        <label>Add a new task</label>
+        <input ng-model="task" ng-keydown="searchEnter()" type="text">
+    </md-input-container>
+</div>
+
+<div ng-repeat="theTask in tasks | orderBy:'status' track by $index" class="custom" layout="column" layout-align="start center" style="padding: 0 16px;">
+    <!--<ul>-->
+        <!--<li >-->
+            <!--<input  type="checkbox" ng-model="theTask.status">-->
+            <!--<span contenteditable="false"  ng-dblclick="contentEdit()" ng-model="theTask.taskMessage" class="done-{{theTask.status}}">-->
+            <!--{{theTask.taskMessage}}-->
+            <!--</span>-->
+            <div layout="row" layout-align="center center" class="full-width">
+                <md-checkbox ng-model="theTask.status" aria-label="checkbox" class="my-custom-style"></md-checkbox>
+                <md-input-container class="my-custom-style full-width">
+                   <input  ng-model-options="{debounce:1000}" type="text" ng-class="{done: theTask.status}" aria-label="edit task"
+                           ng-readonly="truefalse" ng-keydown="endReEdit(theTask)"
+                           ng-dblclick="contentEdit(theTask)" ng-model="theTask.taskMessage">
+                </md-input-container>
+            </div>
+
+            <!--<span contenteditable="false"  ng-keydown="endReEdit(theTask.taskMessage)" ng-dblclick="contentEdit(theTask.taskMessage)" ng-bind="theTask.taskMessage" class="done-{{theTask.status}}">-->
+            <!--{{theTask.taskMessage}}-->
+            <!--</span>-->
+
+        <!--</li>-->
+    <!--</ul>-->
+
+</div>
+
+
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.js"></script>
+<!-- my script -->
+<script src="script.js"></script>
+</body>
+</html>
